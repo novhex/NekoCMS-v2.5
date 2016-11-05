@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<urlset
+	      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+	            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+
+ <url>
+<loc>http://localhost/NekoCMS-v2/</loc></url>
+
+
+ <url>
+<loc>http://localhost/NekoCMS-v2/category/1</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/lorem-impsum</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/el-doggo-neggo</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/kel-novi-maluenda</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/11-signs-that-you-need-to-quit-from-your-work-translated-to-bisaya</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/11-signs-that-you-need-to-quit-from-your-work-english</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/list-of-mime-types-by-content-type</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/left-4-dead-2-cheat-code-list</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/oil-spill</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/cigarettes</loc>
+</url>
+
+
+<url>
+<loc>http://localhost/NekoCMS-v2/article/stay-close-dont-go</loc>
+</url>
+
+
+</urlset>
