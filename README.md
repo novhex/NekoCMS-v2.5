@@ -1,11 +1,4 @@
-# NekoCMS-v2
-The New Neko CMS v2 BETA
+# NekoCMS-v2.5
+The New Neko CMS v2.5
 
-CONTRIBUTOR(S)
 
-- Daryl Ferrer Legion
-https://github.com/whoami15
-
-Project still on development.
-
-Thanks
