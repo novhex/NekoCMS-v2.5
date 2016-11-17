@@ -112,7 +112,7 @@ class Home_model extends CI_Model{
 	
 	public function getArticlePublished($perPage = 5, $offset = 0, $key = null) {
 
-        $this->db->select('p.postID, p.title, p.content, p.slug, p.date_posted, p.posted_by, p.parent_category, c.category_name as categoryName');
+        $this->db->select('p.tags,p.postID, p.title, p.content, p.slug, p.date_posted, p.posted_by, p.parent_category, c.category_name as categoryName');
         $this->db->join('categories c', 'c.categ_ID = p.parent_category');
         $this->db->where('p.is_visible',1);
         $this->db->limit($perPage, $offset);
