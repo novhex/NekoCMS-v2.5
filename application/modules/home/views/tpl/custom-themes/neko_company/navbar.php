@@ -8,6 +8,7 @@
 * @ License MIT
 */
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 ?>
 
 
@@ -23,30 +24,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 
             <ul class="nav navbar-nav navbar-right">
-            
-<!---  FETCH NAVLINKS AND SUB-CATEGORIES !-->
+ 
+                <?php show_navbar_links(); ?>
 
-            <?php foreach($pages as $page){?>
-
-              <li class="dropdown">
-                <a style="font-size: 12px; font-weight: bold;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $page['page_name'];?> <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-
-                <?php foreach($this->pageslib->_getCategories($page['pageID']) as $c): 
-                  if($c['category_name']!==''){
-                ?>
-
-                  <li><a href="<?php echo base_url('category').'/'.$c['category_slug'];?>"> <?php echo $c['category_name'];?></a></li>
-
-                <?php } endforeach;?>
-
-                </ul>
-              </li>
-          <?php } ?>
-          
             </ul>
 
-<!--- END FETCH NAVLINKS AND SUB-CATEGORIES !-->
             </div>
         </div>
     </nav>

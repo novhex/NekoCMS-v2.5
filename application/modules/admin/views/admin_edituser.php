@@ -25,7 +25,7 @@ defined('BASEPATH') or exit('Error!');
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <div class="title">Edit User</div>
+                                    <div class="title"><i class="fa fa-edit"></i> Edit User</div>
                                 </div>
                                 <div class="pull-right card-action">
                                 </div>
@@ -62,7 +62,7 @@ defined('BASEPATH') or exit('Error!');
                                 <?php }?>
 
 
-								<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Update User</button>
+								<button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Update User</button>
                             <?php endforeach; ?>
 								</form>
                             </div>

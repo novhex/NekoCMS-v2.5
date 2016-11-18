@@ -11,9 +11,7 @@ $(document).ready(function(){
 	
 	var base_url;
 	
-	$(document).on('click','#add_page',function(){
-		show_addpagedialog();
-	});
+
 
     $(".dropdown").hover(            
             function() {

@@ -17,29 +17,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 <!-- FETCH ALL  CATEGORY POSTS / ARTICLES !-->
-<?php foreach($categ_post as $index): ?>
-                <div class="well">
-                        <div class="social_media_btns" style="text-align: center;">
-            <p style="text-align: center; font-weight: bold;"> SHARE POST  </p>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo base_url('article').'/'.$index['slug'];?>?ref=fbs"><i class="fa fa-facebook-square fa-2x" style="color:#3b5998;"></i></a>
-            <a href="https://twitter.com/home?status=<?php echo base_url('article').'/'.$index['slug'];?>?ref=tws"><i class="fa fa-twitter fa-2x" style="color:#337ab7;"></i></a>
-            <a href="https://plus.google.com/share?url=<?php echo base_url('article').'/'.$index['slug'];?>?ref=gps"><i class="fa fa-google-plus-square fa-2x" style="color:red;"></i></a>
-        </div>
-
-                    <h1><?php echo $index['title']; ?></h1>
-                    <strong><?php echo "<i class='fa fa-user'></i>  Posted by: ".$this->pageslib->getAuthorFullName($index['posted_by']); ?></strong>
-                     <div><?php echo  $index['tags'] !='' ? "<i class='fa fa-tags'></i> Tags: ".$index['tags'] : ''; ?></div>
-                    <strong><?php echo "<i class='fa fa-calendar'></i> Posted on: ".date('F j,  Y',strtotime($index['date_posted']));?></strong>
-                    
-                    <div id="full-content">
-                    <br>
-                        <?php echo $index['content']; ?>
-                    </div>
-
-                </div>
-<?php endforeach; ?>
+    <?php show_post($post); ?>
 
 <!-- END CATEGORY FETCH ARTICLES !-->
+
+<h2> Comments </h2>
+
+<div id="comments"></div>
+
+
+                    <div class="well">
+
+            
+                            <h4><i class="fa fa-comment"></i> Your comment </h4>
+                        <form action="" method="POST" accept-charset="utf-8">
+                            <input type="hidden" name="news_id" id="news_id" value="<?php echo $post[0]['postID']; ?>" />
+                            <label><?php echo form_error('name'); ?></label>
+                            <input type="text" name="name" class="form-control" placeholder="Enter Your Name" value="<?php echo set_value('name');?>" />
+                            <label><?php echo form_error('email_add'); ?></label>
+                            <input type="text" name="email" placeholder="Email Address" class="form-control" value="<?php echo set_value('email'); ?>"/>
+                            <label><?php echo form_error('comment');?></label>
+                            <textarea class="form-control" placeholder="Your comment (500 characters only)" name="comment"><?php echo set_value('comment'); ?></textarea>
+                            
+                            <br>
+                            
+                            <button class="btn btn-default"><i class="fa fa-plus"></i> Submit Comment</button>
+                        </form>
+                    </div>
 
             </div>
 
@@ -49,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <h3 class="panel-title"><i class="fa fa-search"></i> Search </h3></div>
                     <div class="panel-body">
                     <form accept-charset="utf-8" method="GET" action="<?php echo site_url('home'); ?>">
-                        <input type="search" class="form-control" name="q" placeholder="Type keywords here" />
+                        <input  required type="search" class="form-control" name="q" placeholder="Type keywords here" />
                         <button class="btn btn-default" type="submit" style="margin-top: 5px;">Go </button>
                      </form>
                     </div>
@@ -59,12 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <h3 class="panel-title"><i class="fa fa-history"></i> Recent Post </h3></div>
                     <div class="panel-body">
                     <!--  FETCH LATEST POSTS !-->
-                    <?php foreach($latest_posts as $post): ?>
-                            <p>
-                                <strong style="color: blue;"><a href="<?php echo base_url('article').'/'.$post['slug']; ?>" class=''><i class='fa fa-thumb-tack'></i> <?php echo $post['title']; ?></a></strong>
-                                <small></small>
-                            </p>
-                        <?php endforeach; ?>
+                      <?php  latest_posts($latest_posts); ?>
                     <!-- END FETCH LATEST POSTS !-->
                     </div>
                 </div>
@@ -73,11 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <h3 class="panel-title"><i class="fa fa-comment"></i> Recent Comments</h3></div>
                     <div class="panel-body">
                     <!-- FETCH LATEST COMMENTS !-->
-                          <?php foreach($latest_comments as $com): ?>
-                            <p>
-                               <?php echo $com['name']; ?> on   <strong><a href="<?php  echo base_url('article').'/'.$com['slug'];?>"><?php echo $com['title']; ?></a></strong> <br/>
-                            </p>
-                        <?php endforeach; ?>
+                          <?php get_latest_comments($latest_comments); ?>
                         <!-- END FETCH LATEST COMMENTS !-->
                     </div>
                 </div>
@@ -87,9 +82,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h3 class="panel-title"><i class="fa fa-calendar"></i> Archives</h3>
                     </div>
                     <div class="panel-body">
-                        <?php foreach($archives as $archives_posts){
-                            echo "<li style='list-style-type: none;'><a href='".base_url('archives/').$archives_posts->YEAR."-".$archives_posts->MONTH."'>".date('F Y ',strtotime($archives_posts->YEAR."-".$archives_posts->MONTH))."($archives_posts->TOTAL)" ."</a></li>";
-                        }?>
+                        <?php get_post_archives($archives); ?>
                     </div>
             </div>
 
@@ -106,7 +99,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
          var newsID = $("#news_id").val();
          $(set_base_url("<?php echo base_url(); ?>"));
-         $(loadComments(newsID));
+         
+        $(loadComments(newsID))
+
+
+         $("#thread-comments").html("No comments to show");
 
     });
     </script>

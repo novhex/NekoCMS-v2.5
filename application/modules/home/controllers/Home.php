@@ -17,7 +17,7 @@ class Home extends CI_Controller {
     public function __construct() {
 
         parent::__construct();
-        $this->load->helper(array('url','text'));
+        $this->load->helper(array('url','text','front_end'));
         $this->load->library(array('session','pagination','twitterbootstrap','form_validation','pageslib','themelib'));
         $this->load->model(array('home_model'));
 
@@ -127,7 +127,7 @@ class Home extends CI_Controller {
 			$data['css_files']=$this->twitterbootstrap->load_css_files();
 			$data['js_files']=$this->twitterbootstrap->load_js_files();
 			$data['pages'] =$this->home_model->_getHomeData('pages',NULL);
-			$data['categ_post']=$this->home_model->_getHomeData('posts',array(array('field'=>'slug','parameter'=>$slug)));
+			$data['post']=$this->home_model->_getHomeData('posts',array(array('field'=>'slug','parameter'=>$slug)));
 			$data['page_title']='Category Posts';
 			$data['article_title']=$this->home_model->get_article_title($slug);
 			$data['site_title']=$this->home_model->getsite_title();
@@ -170,7 +170,7 @@ class Home extends CI_Controller {
 			
 
             if($response==1){
-				$this->session->set_flashdata('comment_submitted','Your comment has been saved.');
+				$this->session->set_flashdata('comment_submitted','Your comment has been submitted and waiting for moderation.');
 				redirect(base_url('article').'/'.$slug);
             }
 
@@ -376,12 +376,13 @@ class Home extends CI_Controller {
 		$news_id = $this->input->post('newsID');
 		
 		$data=$this->home_model->getComments($news_id);
-
+		$i = 1;
 		foreach($data as $html_output):
-			
-					$this->str_output="<p><i class='fa fa-user'></i> Comment by: ".$html_output['name']." </p>";
-					$this->str_output.="<p><i class='fa fa-calendar'></i> ".date('F  j, Y',strtotime($html_output['comment_date']));
-					$this->str_output.="<p>".$html_output['comment']."</p><hr>";
+					$this->str_output="<div class=\"panel panel-default\">";
+					$this->str_output.="<div class=\"panel-heading\"><i class='fa fa-comments'></i> Comment by ".$html_output['name']." on ".date('F  j, Y',strtotime($html_output['comment_date']))."</div>";
+					$this->str_output.=" <div class=\"panel-body\">";
+					$this->str_output.="<p>".$html_output['comment']."</p>";
+					$this->str_output.="</div></div>";
 
 					echo $this->str_output;
 
@@ -414,7 +415,7 @@ class Home extends CI_Controller {
 	        $posts = $this->home_model->_getHomeData('posts',NULL);
 
 	        foreach($categories as $i){
-	        	$urlsets.="<url>\n<loc>".base_url()."category/".$i['categ_ID']."</loc>\n</url>\n\n\n";
+	        	$urlsets.="<url>\n<loc>".base_url()."category/".$i['category_slug']."</loc>\n</url>\n\n\n";
 	        }
 
 	        foreach ($posts as $v) {

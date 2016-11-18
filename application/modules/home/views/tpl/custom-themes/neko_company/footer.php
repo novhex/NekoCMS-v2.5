@@ -29,8 +29,8 @@ defined('BASEPATH') or exit('Error!');
                 <div><span class="fa fa-phone footer-contacts-icon"></span>
                     <p class="footer-center-info email text-left"> +1 555 123456</p>
                 </div>
-                <div><span class="fa fa-envelope footer-contacts-icon"></span>
-                    <p> <a href="#" target="_blank">support@company.com</a></p>
+                <div><span class="fa fa-globe footer-contacts-icon"></span>
+                    <p> <a href="" target="_blank">support@company.com</a></p>
                 </div>
             </div>
             <div class="clearfix visible-sm-block"></div>

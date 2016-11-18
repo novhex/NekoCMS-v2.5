@@ -136,6 +136,10 @@ defined('BASEPATH') or exit('Error!');
                 
                 $('#tbl_pages').DataTable();
 
+                  $(document).on('click','#add_page',function(){
+                    show_addpagedialog();
+                  });
+
                 $(document).on('click','.deleteparentpage',function(){
                   var page_id  = this.dataset.pageid;
 
@@ -383,7 +387,7 @@ defined('BASEPATH') or exit('Error!');
 
                        popup = bootbox.dialog({
                         title: 'Comment',
-                        message: "<center><img src='"+"<?php echo base_url('images/loader.gif'); ?>"+"'></center>",
+                        message: "<center><img src='"+"<?php echo base_url('assets/img/loader.gif'); ?>"+"'></center>",
                         size: 'large',
                         onEscape: function(){
                     }
