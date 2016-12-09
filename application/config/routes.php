@@ -50,11 +50,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'home';
-$route['archives/(:any)']='home/archives/$1';
-$route['category/([a-z_-]+)']='home/category/$1';
-$route['category/([a-z_-]+)/(:num)']='home/category/$1/$2';
-$route['article/(:any)']='home/article/$1';
-$route['contact-us']='home/contactus';
-$route['404_override'] = 'error404/page_not_found';
-$route['page_not_found'] = 'error404/page_not_found';
-$route['translate_uri_dashes'] = TRUE;
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;

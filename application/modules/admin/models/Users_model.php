@@ -12,7 +12,6 @@ defined('BASEPATH') or exit('Error!');
 
 class Users_model extends CI_Model{
 
-	private $project_url='';
 
 	public function __construct(){
 		parent::__construct();
@@ -51,6 +50,11 @@ class Users_model extends CI_Model{
 		return $this->db->insert('users',$data);
 	}
 
+
+	public function _getSiteEmail(){
+
+		return $this->db->where('site_info.configID',6)->get('site_info')->row()->configValue;
+	}
 
 	public function _getUserRole($username){
 		$query = $this->db->where('users.usrs_username',$username);
@@ -136,29 +140,22 @@ class Users_model extends CI_Model{
 
 	
 	public function updatesiteInfo(){
+		
 		$this->updateBlogTitle($this->input->post('txt_site_title',true));
 		$this->updateBlogMeta($this->input->post('site_meta',true));
 		$this->updateBlogMetaKw($this->input->post('site_metakw',true));
 		$this->updateBlogOwner($this->input->post('txt_site_owner',true));
 		$this->updateSiteFooter($this->input->post('site_footer',true));
+		$this->updateSiteEmail($this->input->post('txt_site_email',true));
+
 	}
 	
-	public function updateUserPic($path){
-	$this->resetDisplayPhotoSession($path);
-		$data=array(
-			'profile_photo'=>$path
-		);
-	$this->db->where('users.id',1);
-	return $this->db->update('users',$data);
+
+	public function updateSiteEmail($email){
+		return $this->db->where('site_info.configID',6)->update('site_info',array('configValue'=>$email));
 	}
-	
-	
-	public function resetDisplayPhotoSession($newpath){
-		unset($_SESSION['display_photo']);
-		$_SESSION['display_photo']=$newpath;
-	}
-	
-	
+
+		
 	public function updateBlogTitle($new_val){
         $data=array(
 				'configValue'=>$new_val

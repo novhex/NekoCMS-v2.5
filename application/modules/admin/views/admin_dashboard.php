@@ -79,25 +79,6 @@ defined('BASEPATH') or exit('Error!');
                                             </div>
                                           </div>
                                     </div>
-
-                            <div class="col-sm-6">
-                                    <div class="panel panel-primary">
-                                          <div class="panel-heading"><i class="fa fa-area-chart"></i> Visitor Traffic Source</div>
-                                          
-                                          <div class="panel-body" style="float: left;">
-
-                                                <canvas id="stats_canvas" style="width: 100%; "></canvas>
-
-                                          </div>
-
-                                          </div>
-                            </div>
-                            <div class="col-sm-6">
-                              <div class="panel panel-primary">
-                                <div class="panel-heading"><i class="fa fa-history"></i> Page Views </div>
-                                <div class="panel-body"></div>
-                              </div>
-                            </div>
                             </div>
                         </div>
                     </div>

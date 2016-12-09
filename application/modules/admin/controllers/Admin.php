@@ -22,10 +22,9 @@ class Admin extends CI_Controller{
 		parent::__construct();
 		$this->dir_path='./images/';
 		$this->load->library('session');
-		$this->load->helper(array('url','adminvalidation','form'));
+		$this->load->helper(array('url','adminvalidation','form','download_theme'));
 		$this->load->library(array('adminlib','twitterbootstrap','form_validation','session','pagination','htmlfivegraphs'));
 		$this->load->model(array('users_model','page_model','category_model','blog_model'));
-		
 		
 	}
 	
@@ -138,6 +137,7 @@ class Admin extends CI_Controller{
 
 
 	public function add_user(){
+
 		$this->form_validation->set_rules(add_username_validators());
 		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
 
@@ -211,6 +211,7 @@ class Admin extends CI_Controller{
 	
 	//EDIT CATEGORY 
 	public function edit_category($category){
+
 		$this->form_validation->set_rules('txt_category','Page Category','required|min_length[4]|trim|max_length[45]');
 		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
 
@@ -309,6 +310,7 @@ class Admin extends CI_Controller{
 
 
 		public function edit_page($page){
+
 		$this->form_validation->set_rules('txt_pagetitle','Page Name','required|min_length[4]|trim|max_length[45]');
 		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
 
@@ -336,6 +338,7 @@ class Admin extends CI_Controller{
 	}
 
 	public function edit_user($user_id){
+
 		$response =0;
 
 			$validators = array(
@@ -533,6 +536,7 @@ class Admin extends CI_Controller{
 
 
 	public function logout(){
+
 		$this->session->unset_userdata('site_user');
 		$this->session->unset_userdata('site_user_role');
 		redirect(base_url('admin'));
@@ -623,6 +627,7 @@ class Admin extends CI_Controller{
 	}
 	
 	public function site_settings(){
+
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
 		$data['page_title']='Dashboard &ndash; Site Settings';
@@ -632,6 +637,8 @@ class Admin extends CI_Controller{
 		$this->form_validation->set_rules('site_meta','Site Meta','required|trim|max_length[250]');
 		$this->form_validation->set_rules('site_metakw','Site Meta Keywords','required|trim');
 		$this->form_validation->set_rules('site_footer','Footer','required|trim|max_length[500]');
+		$this->form_validation->set_rules('txt_site_email','Site Email','trim|required|valid_email');
+		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
 		
 		if($this->form_validation->run()===FALSE){
 
@@ -641,11 +648,15 @@ class Admin extends CI_Controller{
 			$data['site_metakw'] = $this->users_model->getsite_meta_keywords();
 			$data['footer'] = $this->users_model->getsite_footer();
 			$data['message_count']=$this->page_model->unread_message_count();
+			$data['site_email'] =$this->users_model->_getSiteEmail();
+
 			$this->load->view('tpl/head',$data);
 			$this->load->view('tpl/navbar');
 			$this->load->view('admin_settings', $data);
 			$this->load->view('tpl/footer',$data);
+
 		}else{
+
 			$this->users_model->updatesiteInfo();
 			$this->session->set_flashdata('changes1','Changes has been saved.');
 			redirect(base_url().'admin/site-settings');
@@ -655,6 +666,7 @@ class Admin extends CI_Controller{
 	
 
 	public function newsletter() {
+
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
 		$data['message_count']=$this->page_model->unread_message_count();
@@ -666,6 +678,7 @@ class Admin extends CI_Controller{
 	}
 	
 	public function send() {
+
 		$this->form_validation->set_rules('subject','Subject','trim|required|max_length[200]|min_length[10]');
 		$this->form_validation->set_rules('content','Content','trim|required|max_length[2000]|min_length[10]');
 		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
@@ -687,7 +700,7 @@ class Admin extends CI_Controller{
         $config['mailtype'] = 'html';
         $this->email->initialize($config);
 
-        $this->email->from('no-reply@neko.com', 'Neko Admin');
+        $this->email->from($this->users_model->_getSiteEmail(), $this->users_model-> getsite_title().' newsletter');
         $this->email->to($subscriber->email);
         $this->email->subject($subj);
         $this->email->message($mes);
@@ -709,6 +722,7 @@ class Admin extends CI_Controller{
 	}
 	
 	public function comments () {	
+
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
 		$data['message_count']=$this->page_model->unread_message_count();
@@ -721,39 +735,21 @@ class Admin extends CI_Controller{
 	}
 	
 	public function commentaction(){
+
 		$action = $this->input->post('comment_action');
         $comment_id =$this->input->post('comment_id');
 		echo $this->blog_model->comment_action($action,$comment_id);
 	}
 	
 	public function viewcomment(){
+
 		$c_id = $this->input->post('comment_id');
 		$comment_data['contents'] = $this->blog_model->getBlogCommentbyId($c_id);
 		$this->load->view('admin_commentpopup',$comment_data);
 	}
 
 	public function inbox($offset=0){
-    
-		$uri_segment = 3;
-		$offset = $this->uri->segment($uri_segment);
-		$config['base_url'] = base_url().'admin/inbox';
-		$config['total_rows'] =$this->page_model->unread_message_count();
-		$config['per_page'] = 10;
-		$config['prev_link'] = '&laquo;';
-		$config['next_link'] = '&raquo;';
-		$config['full_tag_open'] = '<ul class="pagination">';
-		$config['full_tag_close'] = '</ul>';
-		$config['prev_link'] = '&laquo;';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = '</li>';
-		$config['cur_tag_open'] = '<li class="active"><a href="#">';
-		$config['cur_tag_close'] = '</a></li>';
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['uri_segment'] = $uri_segment;
-		$this->pagination->initialize($config);
+
 		$data['message_count']=$this->page_model->unread_message_count();
 		$data['message_list']=$this->page_model->fetch_unread_messages(10,$offset);
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
@@ -766,6 +762,7 @@ class Admin extends CI_Controller{
 	}
 	
 	public function showmessage($msgid){
+
 		if(empty($msgid))
 		{
 			redirect('admin/inbox');
@@ -787,6 +784,7 @@ class Admin extends CI_Controller{
 	}
 	
 	public function deletemessage($msgid){
+
 		if(!empty($msgid)){
 			$this->page_model->delete_message($msgid);
 			$this->session->set_flashdata('msgdelete_success','Message Succesfully Deleted');
@@ -799,7 +797,8 @@ class Admin extends CI_Controller{
 
 	public function upload_theme(){
 
-		$this->load->view('admin_upload-theme');
+	$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$this->load->view('admin_upload-theme',$data);
 	}
 
 

@@ -32,7 +32,7 @@ $userData=$this->session->all_userdata();
                             <div class="card-body">
                        <?php
            if(validation_errors()){
-           echo "<div class='alert alert-danger' style='width:965px; height:200px;'><a class='close' data-dismiss='alert'>×</a>".validation_errors()."</div>";
+              echo validation_errors();
            }
            if($this->session->flashdata('changes1')!=''){
 
@@ -45,7 +45,7 @@ $userData=$this->session->all_userdata();
 
                    <div class='form-group'>
                        <div class='col-lg-12'>
-                           <p><span class='glyphicon glyphicon-info-sign'></span>&nbsp; Site Name *</p>
+                           <p><span class='fa fa-info-circle'></span>&nbsp; Site Name *</p>
                            <?php foreach($site_title as $sitename):?>
                            <input value='<?php echo $sitename['configValue']; ?>'  id='txt_site_title' type='text' class='form-control' name='txt_site_title' placeholder='Site Title'/>
                          <?php endforeach; ?>
@@ -54,16 +54,25 @@ $userData=$this->session->all_userdata();
 
             <div class='form-group'>
                                    <div class='col-lg-12'>
-                                       <p><span class='glyphicon glyphicon-user'></span>&nbsp; Site Owner *</p>
+                                       <p><span class='fa fa-user'></span>&nbsp; Site Owner *</p>
                                        <?php foreach($site_owner as $siteowner):?>
                                        <input value='<?php echo $siteowner['configValue']; ?>' id='txt_site_owner' type='text' class='form-control' name='txt_site_owner' placeholder='Site Owner'/>
                                      <?php endforeach; ?>
                                    </div>
 			</div>
 
+                  <div class='form-group'>
+                                   <div class='col-lg-12'>
+                                       <p><span class='fa fa-envelope'></span>&nbsp; Site Admin Email *</p>
+                                       
+                                       <input value='<?php echo $site_email; ?>' id='txt_site_email' type='email' class='form-control' name='txt_site_email' placeholder='Site Email'/>
+                                  
+                                   </div>
+      </div>
+
 			<div class='form-group'>
                        <div class='col-lg-4'>
-                           <p><span class='glyphicon glyphicon-tag'></span>&nbsp; Site Description *</p>
+                           <p><span class='fa fa-list'></span>&nbsp; Site Description *</p>
                             <?php foreach($site_meta as $sitemeta): ?>
                                <textarea style='width:1178px; height:200px;' rows="10" cols="50" style="" name="site_meta" placeholder="Add some description of your site" class="form-control"><?php echo $sitemeta['configValue'];?></textarea>
                             <?php endforeach; ?>
@@ -87,17 +96,7 @@ $userData=$this->session->all_userdata();
                             <?php endforeach; ?>
                        </div>
                    </div>
-                   
-
-                   <div class='form-group'>
-                    
-                       <div class='col-lg-5'>
-
-                        <br>
-                        <button type='submit'  name='btn_publish' class='btn btn-success' style='width: 160px; font-weight: bold; font-size: 16px;'><span class='glyphicon glyphicon-ok'></span>&nbsp;<strong> Save Now </strong></button>
-
-                       </div>
-                   </div>
+          <button type='submit'  name='btn_publish' class='btn btn-success btn-block btn-lg'><span class='glyphicon glyphicon-ok'></span>&nbsp;<strong> Save Now </strong></button>
            </form>
 		    </div>
        </div>
