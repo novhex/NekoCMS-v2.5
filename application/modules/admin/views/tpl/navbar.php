@@ -177,7 +177,7 @@ defined('BASEPATH') or exit('Error!');
                                         <ul class="nav navbar-nav">
                                             <li><a href="<?php echo base_url('admin/frontend-themes/'); ?>">Themes</a>
                                             </li>
-                                            <li><a href="<?php echo base_url('admin/upload-theme/'); ?>"> Download Themes</a></li>
+                                            <li><a href="<?php echo base_url('admin/upload-theme/'); ?>"> Upload New Theme</a></li>
                                             
                                         </ul>
                                     </div>
