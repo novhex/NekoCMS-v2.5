@@ -264,7 +264,7 @@ class Home extends CI_Controller {
 			$this->home_model->signup();
 			$message = 'You have successfully sign up to our newsletter. Thanks. -Webmaster';
 			$email = $this->input->post('email');
-			$this->email->From('no-reply@neko.com', 'Neko Admin');
+			$this->email->From($this->home_model->_getSiteEmail(), $this->home_model->getSiteOwner().' Admin');
 			$this->email->To($email);		
 			$this->email->Subject('Newsletter Signup Confirmation');		
 			$this->email->message($message);

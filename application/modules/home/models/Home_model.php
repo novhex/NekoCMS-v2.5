@@ -89,9 +89,20 @@ class Home_model extends CI_Model{
 		return !empty($result)?$result:false;
 	}
 
+
+	public function _getSiteEmail(){
+
+		return $this->db->where('site_info.configID',6)->get('site_info')->row()->configValue;
+	}
+
 	public function getArchives(){
 
 		return $this->db->query("SELECT YEAR(date_posted) as YEAR , DATE_FORMAT(date_posted,'%m')as MONTH,COUNT(*)as TOTAL FROM posts GROUP BY YEAR,MONTH ORDER BY DATE_FORMAT(date_posted,'%m') DESC ")->result();
+	}
+
+	public function getSiteOwner(){
+
+		return $this->db->where('site_info.configID',3)->get('site_info')->row()->configValue;
 	}
 
 	
