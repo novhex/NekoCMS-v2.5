@@ -184,6 +184,10 @@ class Home_model extends CI_Model{
      
 		return $query->result_array();
 	}
+
+	public function is_article_published($article_slug){
+		return $this->db->where('posts.slug',$article_slug)->get('posts')->row()->is_visible;
+	}
    
     public function savecomment($newsID,$name,$email,$date,$comment){
         $data = array(

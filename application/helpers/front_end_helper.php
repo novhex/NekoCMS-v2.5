@@ -25,7 +25,6 @@ if(!function_exists('show_navbar_links')){
 
 				 		echo "<li><a href='".base_url('category')."/".$subpages->category_slug."'>".$subpages->category_name."</a></li>";
 				 	}
-
 				}
 
 		   echo  "</ul>";

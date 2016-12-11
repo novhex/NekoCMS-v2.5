@@ -81,13 +81,13 @@ class Blog_model extends CI_Model{
    }
 
 
-   public function user_blogs($user_id,$role,$offset,$limit){
+   public function user_blogs($user_id,$role){
 
         if($role=='admin'){
 
             $this->db->join('categories','categories.categ_ID = posts.parent_category','INNER');
             $this->db->order_by("posts.title", "ASC");
-            $query=$this->db->get('posts',$limit,$offset);
+            $query=$this->db->get('posts');
             
             
 
@@ -95,7 +95,7 @@ class Blog_model extends CI_Model{
                 $this->db->join('categories','categories.categ_ID = posts.parent_category','INNER');
                 $this->db->where('posts.posted_by',$user_id);
                 $this->db->order_by("posts.title", "ASC");
-                $query=$this->db->get('posts',$limit,$offset);
+                $query=$this->db->get('posts');
                 
         }
 

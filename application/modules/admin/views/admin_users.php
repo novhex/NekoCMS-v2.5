@@ -55,7 +55,7 @@ defined('BASEPATH') or exit('Error!');
 									<td><?php echo date('F  j, Y h:i:s a',strtotime($index['usrs_date_added'])); ?></td>
 									<td><?php echo date('F  j, Y h:i:s a',strtotime($index['usrs_last_logged'])); ?></td>
 									<td>
-									<a href="<?php echo base_url('admin/edit-user/').'/'.$index['usrs_ID'];?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+									<a href="<?php echo base_url('admin/edit-user/').$index['usrs_ID'];?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
 									</td>
 								
 								</tr>

@@ -395,7 +395,7 @@ defined('BASEPATH') or exit('Error!');
                     });
 
                 $.ajax({
-                    url: "<?php echo base_url('admin/viewcomment'); ?>",
+                    url: "<?php echo base_url('admin/admin_ajax/viewcomment'); ?>",
                     data: "comment_id="+id,
                     type: "POST",
                     success:function(response){

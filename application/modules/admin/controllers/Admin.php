@@ -54,7 +54,7 @@ class Admin extends CI_Controller{
 				$this->users_model->_lastLogged($this->input->post('txtusername',TRUE));
 				redirect(base_url('admin/dashboard'));
 			}else{
-				 $this->session->set_flashdata('auth_error','Invalid Username or Password');
+				 $this->session->set_flashdata('auth_error','<p style="color:red;" class="text-center">Invalid Username or Password</p>');
 				 redirect(base_url('admin'));
 			}
 		}
@@ -180,13 +180,13 @@ class Admin extends CI_Controller{
 
 	public function blog_post(){
 		
-           $offset=0;
+          
            $config['total_rows'] =  $this->blog_model->countpost_from_category($this->session->userdata('site_user_id'),$this->session->userdata('site_user_role'));
 			$data['css_files'] = $this->twitterbootstrap->load_css_files();
 			$data['js_files'] = $this->twitterbootstrap->load_js_files();
 			$data['message_count']=$this->page_model->unread_message_count();
 			$data['page_title'] = 'Dashboard &ndash;Blog Post';
-			$data['user_posts'] =$this->blog_model->user_blogs($this->session->userdata('site_user_id'),$this->session->userdata('site_user_role'),$offset,$config['total_rows']);
+			$data['user_posts'] =$this->blog_model->user_blogs($this->session->userdata('site_user_id'),$this->session->userdata('site_user_role'));
 			$this->load->view('tpl/head',$data);
 			$this->load->view('tpl/navbar');
 			$this->load->view('admin-viewpost',$data);
@@ -642,11 +642,11 @@ class Admin extends CI_Controller{
 		
 		if($this->form_validation->run()===FALSE){
 
-			$data['site_meta']=$this->users_model->getsite_meta_description();
-			$data['site_owner']=$this->users_model->getsite_owner();
-			$data['site_title']=$this->users_model-> getsite_title();
-			$data['site_metakw'] = $this->users_model->getsite_meta_keywords();
-			$data['footer'] = $this->users_model->getsite_footer();
+			$data['site_meta']=	$this->users_model->get_site_property('meta_desc');
+			$data['site_owner']=$this->users_model->get_site_property('site-owner');
+			$data['site_title']=$this->users_model-> get_site_property('site_name');
+			$data['site_metakw'] = $this->users_model->get_site_property('meta_keywords');
+			$data['footer'] = $this->users_model->get_site_property('site_footer');
 			$data['message_count']=$this->page_model->unread_message_count();
 			$data['site_email'] =$this->users_model->_getSiteEmail();
 
@@ -741,14 +741,8 @@ class Admin extends CI_Controller{
 		echo $this->blog_model->comment_action($action,$comment_id);
 	}
 	
-	public function viewcomment(){
 
-		$c_id = $this->input->post('comment_id');
-		$comment_data['contents'] = $this->blog_model->getBlogCommentbyId($c_id);
-		$this->load->view('admin_commentpopup',$comment_data);
-	}
-
-	public function inbox($offset=0){
+	public function inbox(){
 
 		$data['message_count']=$this->page_model->unread_message_count();
 		$data['message_list']=$this->page_model->fetch_unread_messages(10,$offset);

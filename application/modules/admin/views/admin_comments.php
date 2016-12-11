@@ -19,7 +19,7 @@ defined('BASEPATH') or exit('Error!');
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <div class="title">Comments</div>
+                                    <div class="title"><i class="fa fa-comments"></i> Comments</div>
                                 </div>
                                 <div class="pull-right card-action">
                                 </div>

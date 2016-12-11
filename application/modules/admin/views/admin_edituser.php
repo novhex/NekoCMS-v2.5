@@ -61,6 +61,8 @@ defined('BASEPATH') or exit('Error!');
 								</select>
                                 <?php }?>
 
+                                <label>Profile Picture</label>
+                                <input type="file" name="profilephoto" class="form-control" />
 
 								<button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Update User</button>
                             <?php endforeach; ?>

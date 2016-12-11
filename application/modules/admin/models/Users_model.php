@@ -31,15 +31,14 @@ class Users_model extends CI_Model{
 			$cp = $this->db->select('usrs_pw');
 			$cp = $this->db->from('users');
 			$cp = $this->db->where('users.usrs_username',$username);
-			$cp = $this->db->get();
+			$hashed_password =  $this->db->get()->row()->usrs_pw;
 
-			foreach($cp->result_array() as $index){
-				if(password_verify($password,$index['usrs_pw'])){
-					return TRUE;
-				}else{
-					return FALSE;
-				}
+			if(password_verify($password,$hashed_password)){
+				return TRUE;
+			}else{
+				return FALSE;
 			}
+
 		}else{
 			return FALSE;
 		}
@@ -99,43 +98,25 @@ class Users_model extends CI_Model{
 		$this->db->where('users.usrs_ID',$userId);
 		return $this->db->update('users',$data);
 	}
-	
-	public function getsite_meta_description(){
-		$this->db->where('site_info.configID',2);
-		$query=$this->db->get('site_info');
-		return $query->result_array();
-	}
 
-    public function getsite_meta_keywords(){
-		$this->db->where('site_info.configID',4);
-		$query=$this->db->get('site_info');
-		return $query->result_array();
-	}
-	
-	public function getsite_footer(){
-		$this->db->where('site_info.configID',5);
-		$query=$this->db->get('site_info');
-		return $query->result_array();
-	}
-	
-	public function getsite_owner(){
-		$this->db->where('site_info.configID',3);
-		$query=$this->db->get('site_info');
-		return $query->result_array();
-	}
 
-	public function getsite_title(){
-		$this->db->where('site_info.configID',1);
-		$query=$this->db->get('site_info');
-		return $query->result_array();		
-	}
-	
-	public function changeNick($new_val){
-		$data=array(
-			'usrs_full_name'=>$new_val
-		);
-		$this->db->where('users.id',1);
-		return $this->db->update('users',$data);
+	public function get_site_property($property_name){
+
+		if($property_name==='site_name'){
+			return $this->db->where('site_info.configID',1)->get('site_info')->row()->configValue;
+		}
+		else if($property_name=='meta_desc'){
+			return $this->db->where('site_info.configID',2)->get('site_info')->row()->configValue;
+		}
+		else if($property_name==='site-owner'){
+			return $this->db->where('site_info.configID',3)->get('site_info')->row()->configValue;
+		}
+		else if($property_name==='meta_keywords'){
+			return $this->db->where('site_info.configID',4)->get('site_info')->row()->configValue;
+		}
+		else if($property_name=='site_footer'){
+			return $this->db->where('site_info.configID',5)->get('site_info')->row()->configValue;
+		}
 	}
 
 	

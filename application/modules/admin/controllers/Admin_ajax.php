@@ -17,7 +17,7 @@ class Admin_ajax extends CI_Controller{
 		parent::__construct();
 
 		$this->load->helper(array('url'));
-		$this->load->model('page_model');
+		$this->load->model(array('page_model','blog_model'));
 		$this->load->library(array('adminlib','session'));
 	}
 
@@ -197,6 +197,11 @@ class Admin_ajax extends CI_Controller{
 		}
 	}
 
+	public function viewcomment(){
 
+		$c_id = $this->input->post('comment_id');
+		$comment_data['contents'] = $this->blog_model->getBlogCommentbyId($c_id);
+		$this->load->view('admin_commentpopup',$comment_data);
+	}
 
 }

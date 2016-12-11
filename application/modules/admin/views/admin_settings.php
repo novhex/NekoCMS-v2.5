@@ -46,18 +46,18 @@ $userData=$this->session->all_userdata();
                    <div class='form-group'>
                        <div class='col-lg-12'>
                            <p><span class='fa fa-info-circle'></span>&nbsp; Site Name *</p>
-                           <?php foreach($site_title as $sitename):?>
-                           <input value='<?php echo $sitename['configValue']; ?>'  id='txt_site_title' type='text' class='form-control' name='txt_site_title' placeholder='Site Title'/>
-                         <?php endforeach; ?>
+                           
+                           <input value='<?php echo $site_title; ?>'  id='txt_site_title' type='text' class='form-control' name='txt_site_title' placeholder='Site Title'/>
+                         
                        </div>
                    </div>
 
             <div class='form-group'>
                                    <div class='col-lg-12'>
                                        <p><span class='fa fa-user'></span>&nbsp; Site Owner *</p>
-                                       <?php foreach($site_owner as $siteowner):?>
-                                       <input value='<?php echo $siteowner['configValue']; ?>' id='txt_site_owner' type='text' class='form-control' name='txt_site_owner' placeholder='Site Owner'/>
-                                     <?php endforeach; ?>
+                                       
+                                       <input value='<?php echo $site_owner; ?>' id='txt_site_owner' type='text' class='form-control' name='txt_site_owner' placeholder='Site Owner'/>
+                                     
                                    </div>
 			</div>
 
@@ -73,18 +73,18 @@ $userData=$this->session->all_userdata();
 			<div class='form-group'>
                        <div class='col-lg-4'>
                            <p><span class='fa fa-list'></span>&nbsp; Site Description *</p>
-                            <?php foreach($site_meta as $sitemeta): ?>
-                               <textarea style='width:1178px; height:200px;' rows="10" cols="50" style="" name="site_meta" placeholder="Add some description of your site" class="form-control"><?php echo $sitemeta['configValue'];?></textarea>
-                            <?php endforeach; ?>
+                            
+                               <textarea style='width:1178px; height:200px;' rows="10" cols="50" style="" name="site_meta" placeholder="Add some description of your site" class="form-control"><?php echo $site_meta; ?></textarea>
+                            
                        </div>
                    </div>
 
                       <div class='form-group'>
                        <div class='col-lg-4'>
                            <p><span class='glyphicon glyphicon-eye-open'></span>&nbsp; Site Meta Keywords (keywords must be separeted by comma) *</p>
-                            <?php foreach($site_metakw as $sitemetakw): ?>
-                               <textarea style='width:1178px; height:200px;' rows="10" cols="50"  style="" name="site_metakw" placeholder="Add some meta keywords of your site" class="form-control"><?php echo $sitemetakw['configValue'];?></textarea>
-                            <?php endforeach; ?>
+                            
+                               <textarea style='width:1178px; height:200px;' rows="10" cols="50"  style="" name="site_metakw" placeholder="Add some meta keywords of your site" class="form-control"><?php echo $site_metakw;?></textarea>
+                            
                        </div>
                    </div>
 					

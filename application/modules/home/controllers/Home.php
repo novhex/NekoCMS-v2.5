@@ -111,10 +111,10 @@ class Home extends CI_Controller {
 
 		$slug = str_replace("_","-",$slug);
 		$datasize =$this->home_model->_getHomeData('posts',array(array('field'=>'slug','parameter'=>$slug)));
-
+		$is_published = $this->home_model->is_article_published($slug);
 		
 
-		if(sizeof($datasize)>0){
+		if(sizeof($datasize)>0 && $is_published==1){
 
 		$this->form_validation->set_rules('name','Name','trim|required|min_length[2]|max_length[50]');
         $this->form_validation->set_rules('email','Email Address','trim|required|valid_email');

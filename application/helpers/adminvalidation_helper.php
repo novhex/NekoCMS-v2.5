@@ -18,12 +18,12 @@ function login_validators(){
 		array(
 			'label' => 'Username',
 			 'field'=> 'txtusername',
-			  'rules' => 'trim|required|min_length[6]'
+			  'rules' => 'trim|required|min_length[1]'
 			),
 		array(
 			'label' 	=> 'Password',
 			 'field'	=> 'txtpassword',
-			  'rules'	=>  'trim|required|min_length[6]'
+			  'rules'	=>  'trim|required'
 			)
 		);
 
