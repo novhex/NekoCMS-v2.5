@@ -65,11 +65,8 @@ class Users_model extends CI_Model{
 	}
 
 	public function _getUserID($username){
-		$query = $this->db->where('users.usrs_username',$username);
-		$query = $this->db->get('users');
-		foreach($query->result_array() as $index){
-			return $index['usrs_ID'];
-		}
+
+		return $this->db->where('users.usrs_username',$username)->get('users')->row()->usrs_ID;
 	}
 
 	public function _getUsersData($table,$params){
@@ -122,12 +119,14 @@ class Users_model extends CI_Model{
 	
 	public function updatesiteInfo(){
 		
-		$this->updateBlogTitle($this->input->post('txt_site_title',true));
+		/*$this->updateBlogTitle($this->input->post('txt_site_title',true));
 		$this->updateBlogMeta($this->input->post('site_meta',true));
 		$this->updateBlogMetaKw($this->input->post('site_metakw',true));
 		$this->updateBlogOwner($this->input->post('txt_site_owner',true));
 		$this->updateSiteFooter($this->input->post('site_footer',true));
-		$this->updateSiteEmail($this->input->post('txt_site_email',true));
+		$this->updateSiteEmail($this->input->post('txt_site_email',true));*/
+
+		
 
 	}
 	
@@ -136,6 +135,10 @@ class Users_model extends CI_Model{
 		return $this->db->where('site_info.configID',6)->update('site_info',array('configValue'=>$email));
 	}
 
+	public function updateSiteDetails($configID,$newValue){
+		$data = array('configValue'=>$newValue);
+		return $this->db->where('site_info.configID',$configID)->update('site_info',$data);
+	}
 		
 	public function updateBlogTitle($new_val){
         $data=array(

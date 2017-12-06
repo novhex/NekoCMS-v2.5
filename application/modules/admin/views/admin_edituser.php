@@ -53,12 +53,23 @@ defined('BASEPATH') or exit('Error!');
 								
                                 <?php 
                                 if($this->session->userdata('site_user_role')=='admin'){?>
+
+                                <?php if($index['usrs_role']=='admin'){ ?>
                                 <label>User Role</label>
 								<select name="usr_role" class="form-control">
 								<option value="">-Select Role-</option>
-								<option value="admin">Admin</option>
+								<option selected="" value="admin">Admin</option>
 								<option  value="writer">Writer</option>
 								</select>
+                                <?php }else if($index['usrs_role']=='writer'){?>
+                                <label>User Role</label>
+                                <select name="usr_role" class="form-control">
+                                <option value="">-Select Role-</option>
+                                <option  value="admin">Admin</option>
+                                <option  selected="" value="writer">Writer</option>
+                                </select>
+                                <?php }?>
+
                                 <?php }?>
 
                                 <label>Profile Picture</label>

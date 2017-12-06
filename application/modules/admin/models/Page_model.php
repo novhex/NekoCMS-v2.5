@@ -131,7 +131,8 @@ class Page_model extends CI_Model{
 	}
 
 	public function total_visitor_by_ref($ref_page){
-		return $this->db->where('visitor_stats.V_RF',$ref_page)->count_all_results('visitor_stats');
+		//return $this->db->where('visitor_stats.V_RF',$ref_page)->count_all_results('visitor_stats');
+		return 0;
 	}
 	
 }

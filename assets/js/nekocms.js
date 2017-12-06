@@ -11,8 +11,18 @@ $(document).ready(function(){
 	
 	var base_url;
 	
+	$(document).on('click','#add_page',function(){
+		show_addpagedialog();
+	});
 
 
+
+
+
+
+});
+
+  $(function(){
     $(".dropdown").hover(            
             function() {
                 $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
@@ -23,8 +33,7 @@ $(document).ready(function(){
                 $('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
                 $(this).toggleClass('open');
                 $('b', this).toggleClass("caret caret-up");                
-    });
-    
+            });
     $(".dropdown-toggle").on('click',function(){
         //alert($(this).attr('href'));
         var page_link = $(this).attr('href');
@@ -32,12 +41,7 @@ $(document).ready(function(){
         window.location = page_link;
     })
     
-
-});
-
-/* WARNING
-* System Functions : DO NOT MODIFY!
-*/
+    });
 
 	function add_page(page_title){
 		

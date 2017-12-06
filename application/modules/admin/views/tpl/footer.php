@@ -151,7 +151,9 @@ defined('BASEPATH') or exit('Error!');
                           method: "POST",
                           data: "parent_page_id="+page_id,
                           succes:function(response){
-                            console.log(response);
+                              if(response==1){
+                                window.location = "<?php echo base_url('admin/parent-pages/'); ?>";
+                              }
                           }
                         });
                       }
@@ -473,16 +475,7 @@ defined('BASEPATH') or exit('Error!');
         }
   
   </script>
-
-  <script type="text/javascript">
-    
-     
-            new Chart(document.getElementById("stats_canvas").getContext("2d")).Line(lineChart, {
-                responsive: true,
-                tooltipFillColor: "rgba(51, 51, 51, 0.55)"
-            });
-
-  </script>
+  
       <script type="text/javascript">
           $(document).on('click','#btn_check_civersion',function(){
             
@@ -493,12 +486,12 @@ defined('BASEPATH') or exit('Error!');
               url: "<?php echo base_url('admin/admin_ajax/check_ci_version');?>",
               type: "POST",
               success:function(response){
-                if(response==$('#ci-ver').html()){
+                if(response.replace(/\./g,"")===$('#ci-ver').html().replace(/\./g,"")){
                   $("#ci-ver-status").css('color','green');
                   $("#ci-ver-status").html("Version Check Status: Running on latest CI version.");
                 }else{
                    $("#ci-ver-status").css('color','red');
-                  $("#ci-ver-status").html("Version Check Status: Please update your CI version.");
+                  $("#ci-ver-status").html("Version Check Status: Please update your CI version to version "+response);
                 }
                 $("#btn_check_civersion").html("<i class='fa fa-globe'></i> Check for Updates");
                 $('#btn_check_civersion').attr('disabled',false);

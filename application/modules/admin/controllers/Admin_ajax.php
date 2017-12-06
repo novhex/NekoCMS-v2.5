@@ -71,17 +71,30 @@ class Admin_ajax extends CI_Controller{
 	 }
 	}
 
-	public function check_ci_version(){
-		if($this->session->userdata('site_user')!=''){
-			if($this->input->is_ajax_request()){
-				
-				$ci_version_detected="";
-				$ci_home_content = file_get_contents('https://codeigniter.com/');
-				preg_match('~/archive/(.*?).zip~', $ci_home_content, $ci_version_detected);
-				$data = explode("/",$ci_version_detected[0]); 
+ 
 
-				echo str_replace(".zip","",$data[2]);
-			}
+
+	public function check_ci_version(){
+		
+		if($this->input->is_ajax_request() && $this->session->userdata('site_user')!=''){
+
+					$arrContextOptions=array(
+		    "ssl"=>array(
+		        "verify_peer"=>false,
+		        "verify_peer_name"=>false,
+		    ),
+		);  
+
+		$replace_strings = array('.zip','.');
+		$string_to_replace = array('','');
+
+			
+			$ci_version_detected="";
+			$ci_home_content = file_get_contents('https://codeigniter.com/', false, stream_context_create($arrContextOptions));
+			preg_match('~/archive/(.*?).zip~', $ci_home_content, $ci_version_detected);
+			$data = explode("/",$ci_version_detected[0]); 
+
+			echo str_replace(".zip","",$data[2]);
 		}
 	}
 

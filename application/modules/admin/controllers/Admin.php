@@ -657,7 +657,13 @@ class Admin extends CI_Controller{
 
 		}else{
 
-			$this->users_model->updatesiteInfo();
+			$this->users_model->updateSiteDetails(1,$this->input->post('txt_site_title',true));
+			$this->users_model->updateSiteDetails(2,$this->input->post('site_meta',true));
+			$this->users_model->updateSiteDetails(3,$this->input->post('txt_site_owner',true));
+			$this->users_model->updateSiteDetails(4,$this->input->post('site_metakw',true));
+			$this->users_model->updateSiteDetails(5,$this->input->post('site_footer',true));
+			$this->users_model->updateSiteDetails(6,$this->input->post('txt_site_email',true));
+
 			$this->session->set_flashdata('changes1','Changes has been saved.');
 			redirect(base_url().'admin/site-settings');
 		}
